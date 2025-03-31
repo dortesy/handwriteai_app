@@ -3,158 +3,184 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HandwriteAI - Mobile Application</title>
+    <title>HandwriteAI - Digital to Handwriting</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #4a6fa5;
-            --secondary-color: #2c3e50;
-            --accent-color: #3498db;
-            --bg-color: #f8f9fa;
-            --text-color: #333;
+            --bg-color: #f7f7f7;       /* Slightly off-white */
+            --text-color: #1f2937;     /* Darker gray */
+            --gray-light: #e5e7eb;
+            --gray-medium: #6b7280;
+            --gray-dark: #4b5563;
+            --indigo: #4f46e5;
+            --pink: #ec4899;
+            --white: #ffffff;
+            --font-primary: 'Inter', sans-serif;
         }
-        
+
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
+
+        html, body {
+            height: 100%;
+        }
+
         body {
+            font-family: var(--font-primary);
             background-color: var(--bg-color);
             color: var(--text-color);
-            line-height: 1.6;
-        }
-        
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 2rem;
-            min-height: 100vh;
             display: flex;
             flex-direction: column;
+            line-height: 1.6;
         }
-        
-        header {
+
+        /* Subtle background pattern */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(var(--gray-light) 1px, transparent 1px);
+            background-size: 15px 15px;
+            opacity: 0.3;
+            z-index: -1;
+        }
+
+        .main-content {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem; /* 24px */
+        }
+
+        .container {
+            width: 100%;
+            max-width: 42rem; /* 672px */
             text-align: center;
-            margin-bottom: 2rem;
         }
-        
-        .logo {
-            font-size: 2.5rem;
-            font-weight: bold;
-            color: var(--primary-color);
-            margin-bottom: 1rem;
+
+        h1 {
+            font-size: 3rem; /* 48px */
+            font-weight: 700;
+            margin-bottom: 1rem; /* 16px */
         }
-        
+
+        .gradient-text {
+            background: linear-gradient(to right, var(--indigo), var(--pink));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
         .tagline {
-            font-size: 1.2rem;
-            color: var(--secondary-color);
-            font-weight: 300;
+            font-size: 1.25rem; /* 20px */
+            color: var(--gray-medium);
+            margin-bottom: 2.5rem; /* 40px */
         }
-        
-        main {
-            flex: 1;
-            background-color: white;
-            border-radius: 10px;
-            padding: 2rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        
-        .card {
-            margin-bottom: 2rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid #eee;
-        }
-        
-        .card:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-        }
-        
-        h2 {
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-        }
-        
-        p {
-            margin-bottom: 1rem;
-        }
-        
-        a {
-            color: var(--accent-color);
-            text-decoration: none;
+
+        .tagline .highlight {
             font-weight: 500;
-            transition: color 0.3s;
+            color: var(--text-color); /* Make highlight stand out more */
         }
-        
-        a:hover {
-            color: var(--primary-color);
-            text-decoration: underline;
+
+        .button-container {
+            display: flex;
+            flex-direction: column; /* Stack buttons on small screens */
+            justify-content: center;
+            gap: 1rem; /* 16px */
         }
-        
+
         .btn {
             display: inline-block;
-            background-color: var(--accent-color);
-            color: white;
-            padding: 0.5rem 1.5rem;
-            border-radius: 4px;
-            margin-top: 0.5rem;
-            transition: background-color 0.3s;
-        }
-        
-        .btn:hover {
-            background-color: var(--primary-color);
+            border-radius: 0.5rem; /* 8px */
+            padding: 0.75rem 1.5rem; /* 12px 24px */
+            font-weight: 500;
             text-decoration: none;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.03);
+        }
+
+        .btn-secondary {
+            background-color: var(--white);
+            color: var(--gray-dark);
+            border: 1px solid var(--gray-light);
+        }
+
+        .btn-primary {
+            background-color: var(--indigo);
+            color: var(--white);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         }
         
+        .btn-primary:hover {
+             background-color: #4338ca; /* Slightly darker indigo */
+        }
+
         footer {
             text-align: center;
-            margin-top: 2rem;
-            color: var(--secondary-color);
-            font-size: 0.9rem;
+            padding: 1.5rem; /* 24px */
+            color: var(--gray-medium);
+            font-size: 0.875rem; /* 14px */
+            margin-top: auto; /* Push footer to bottom */
         }
-        
-        @media (max-width: 768px) {
-            .container {
-                padding: 1rem;
+
+        /* Responsive adjustments */
+        @media (min-width: 768px) { /* Corresponds to md: breakpoint */
+            h1 {
+                font-size: 3.75rem; /* 60px */
             }
-            
-            main {
-                padding: 1.5rem;
+            .tagline {
+                font-size: 1.5rem; /* 24px */
+            }
+            .button-container {
+                 flex-direction: row; /* Side-by-side buttons on larger screens */
+                 gap: 1.5rem; /* 24px */
             }
         }
+
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <div class="logo">HandwriteAI</div>
-            <div class="tagline">Transform your digital text into beautiful handwriting</div>
-        </header>
-        
-        <main>
-            <section class="card">
-                <h2>About HandwriteAI</h2>
-                <p>HandwriteAI is a powerful mobile application that uses advanced AI technology to convert your digital text into beautiful, natural-looking handwriting. Type digitally, share handwritten notes effortlessly.</p>
-            </section>
-            
-            <section class="card">
-                <h2>Privacy Policy</h2>
-                <p>We take your privacy seriously. Our detailed privacy policy explains how we handle your data and protect your information.</p>
-                <a href="privacy-policy.html" class="btn">Read Privacy Policy</a>
-            </section>
-            
-            <section class="card">
-                <h2>Contact Us</h2>
-                <p>Have questions or need assistance? We're here to help!</p>
-                <p>Email: <a href="mailto:contact@handwriteai.app">contact@handwriteai.app</a></p>
-            </section>
-        </main>
-        
-        <footer>
-            <p>&copy; 2025 HandwriteAI. All rights reserved.</p>
-        </footer>
+
+    <div class="main-content">
+        <div class="container">
+
+            <h1>
+                <span class="gradient-text">HandwriteAI</span>
+            </h1>
+
+            <p class="tagline">
+                Give your digital text the <span class="highlight">soul</span> of handwriting.
+            </p>
+
+            <div class="button-container">
+                <a href="privacy-policy.html" class="btn btn-secondary">
+                    Privacy Matters
+                </a>
+
+                <a href="mailto:contact@handwriteai.app" class="btn btn-primary">
+                    Get In Touch
+                </a>
+            </div>
+
+        </div>
     </div>
+
+    <footer>
+        &copy; 2025 HandwriteAI. Effortlessly unique.
+    </footer>
+
 </body>
 </html>
